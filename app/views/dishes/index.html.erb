@@ -88,12 +88,15 @@
 
       <% @dishes.each do |dish| %>
       <tr>
-        <td><%= dish.name %></td>
+
+        <td>
+          <a  href="/dishes/<%= dish.id %>"><%= dish.name %></a>
+        </td>
         
         <td>
           <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control",:prompt => 'Choose a venue...') %>
         </td>
-        
+
         <td>
           <% if dish.cuisine.present? %>
             <a href="/cuisines/<%= dish.cuisine.id %>">
