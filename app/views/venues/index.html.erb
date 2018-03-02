@@ -101,27 +101,26 @@
         <th>Neighborhood</th>
         <th>Actions</th>
       </tr>
-
-      <% @venues.each do |venue| %>
-      <tr>
-        <td><%= venue.name %></td>
-        <td><%= venue.address %></td>
-        <td>
-          <% if venue.neighborhood.present? %>
-            <a href="/neighborhoods/<%= venue.neighborhood.id %>">
-              <%= venue.neighborhood.name %>
-            </a>
-          <% end %>
-        </td>
-        <td>
-          <a href="/venues/<%= venue.id %>" class="btn btn-primary">Show</a>
-          <a href="/venues/<%= venue.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_venue/<%= venue.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
-        </td>
-      </tr>
+      
+      <% current_user.bookmarked_venues.each do |bookmark_venue| %>
+        <tr>
+          <td><%= bookmark_venue.name %></td>
+          <td><%= bookmark_venue.address %></td>
+          <td>
+            <% if bookmark_venue.neighborhood.present? %>
+              <a href="/neighborhoods/<%= bookmark_venue.neighborhood.id %>">
+                <%= bookmark_venue.neighborhood.name %>
+              </a>
+            <% end %>
+          </td>
+          <td>
+            <a href="/venues/<%= bookmark_venue.id %>" class="btn btn-primary">Show</a>
+            <a href="/venues/<%= bookmark_venue.id %>/edit" class="btn btn-warning">Edit</a>
+            <a href="/delete_venue/<%= bookmark_venue.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          </td>
+        </tr>
       <% end %>
     </table>
-    <%= paginate @venues, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
 
