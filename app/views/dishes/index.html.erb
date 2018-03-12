@@ -76,9 +76,9 @@
         <td>
           <!-- We may want to eliminate this link unless it goes somewhere useful. -->
           <% if dish.cuisine.present? %>
-            <a href="/cuisines/<%= dish.cuisine.id %>" class="badge badge-primary">
+            <span class="badge badge-primary">
               <%= dish.cuisine.name %>
-            </a>
+            </span>
           <% end %>
         </td>
       </tr>
