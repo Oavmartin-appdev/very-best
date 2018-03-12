@@ -52,18 +52,12 @@
           <!-- This method of gettint the venue name is REALLY poor practice, and we should fix it if we have time.-->
           <a href="/venues/<%= ven.to_s.gsub(']','').gsub('[','').to_i %>"><%= Venue.find(ven).pluck(:name).to_s.gsub('"','').gsub(']','').gsub('[','') %></a>
         </td>
-        <td class="mr-sm-1">
-          
-        </td>
+
         <% else %>
         
-        <form action="/create_bookmark" method="post">
         <td>
-          <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control",:prompt => 'Choose a venue...') %>
-        </td>
-        
-        <td>
-          
+          <form action="/create_bookmark" class="form-inline" method="post">
+            <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control form-control-sm mr-sm-1",:prompt => 'Choose a venue...') %>
             <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
             <input type="hidden" name="dish_id" value="<%= dish.id %>">
             <input type="hidden" name="user_id" value="<%= current_user.id %>">
@@ -73,7 +67,7 @@
           </form>
         </td>
         <% end %>
-        <td>
+        <td class="text-right">
           <!-- We may want to eliminate this link unless it goes somewhere useful. -->
           <% if dish.cuisine.present? %>
             <span class="badge badge-primary">
