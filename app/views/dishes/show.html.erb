@@ -26,7 +26,7 @@
           </li>
           <% @dish.bookmarks.each do |bookmark| %>
           <li class="list-group-item">
-            <p></p><a href="/venues/<%= bookmark.venue.id %>"> 
+            <p><a href="/venues/<%= bookmark.venue.id %>"> 
               <%= bookmark.venue.name %>
             </a></p>
           </li>
