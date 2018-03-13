@@ -43,24 +43,20 @@
         <th>Name</th>
         <th>Address</th>
         <th>Neighborhood</th>
-        <th>Actions</th>
       </tr>
       
       <% @venues.each do |bookmark_venue| %>
         <tr>
-          <td><%= bookmark_venue.name %></td>
+          <td>
+            <a href="/venues/<%= bookmark_venue.id %>"><%= bookmark_venue.name %></a>
+          </td>
           <td><%= bookmark_venue.address %></td>
           <td>
             <% if bookmark_venue.neighborhood.present? %>
-              <a href="/neighborhoods/<%= bookmark_venue.neighborhood.id %>">
-                <%= bookmark_venue.neighborhood.name %>
-              </a>
+              <small>
+                <%= bookmark_venue.neighborhood.name %>, Chicago
+              </small>
             <% end %>
-          </td>
-          <td>
-            <a href="/venues/<%= bookmark_venue.id %>" class="btn btn-primary">Show</a>
-            <a href="/venues/<%= bookmark_venue.id %>/edit" class="btn btn-warning">Edit</a>
-            <a href="/delete_venue/<%= bookmark_venue.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
           </td>
         </tr>
       <% end %>
