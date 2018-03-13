@@ -46,27 +46,33 @@
           <a  href="/dishes/<%= dish.id %>"><%= dish.name %></a>
         </td>
         
+        <% if current_user.dishes.exists?(dish.id) %>
+        <% ven = current_user.bookmarks.where("dish_id=?",dish.id).pluck(:venue_id) %>
         <td>
-          <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control",:prompt => 'Choose a venue...') %>
+          <!-- This method of gettint the venue name is REALLY poor practice, and we should fix it if we have time.-->
+          <a href="/venues/<%= ven.to_s.gsub(']','').gsub('[','').to_i %>"><%= Venue.find(ven).pluck(:name).to_s.gsub('"','').gsub(']','').gsub('[','') %></a>
         </td>
+
+        <% else %>
         
         <td>
-          <form action="/create_bookmark" method="post">
+          <form action="/create_bookmark" class="form-inline" method="post">
+            <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control form-control-sm mr-sm-1",:prompt => 'Choose a venue...') %>
             <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
             <input type="hidden" name="dish_id" value="<%= dish.id %>">
-            <input type="hidden" name="venue_id" value="<%= current_user.id %>">
             <input type="hidden" name="user_id" value="<%= current_user.id %>">
             <button class="btn btn-primary btn-sm">
               <i class="fa fa-heart"></i>
             </button>
           </form>
         </td>
-
-        <td>
+        <% end %>
+        <td class="text-right">
+          <!-- We may want to eliminate this link unless it goes somewhere useful. -->
           <% if dish.cuisine.present? %>
-            <a href="/cuisines/<%= dish.cuisine.id %>">
+            <span class="badge badge-primary">
               <%= dish.cuisine.name %>
-            </a>
+            </span>
           <% end %>
         </td>
       </tr>
