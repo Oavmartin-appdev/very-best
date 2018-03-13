@@ -24,11 +24,11 @@
               </button>
             </form>
           </li>
-          <% @dish.bookmarks.each do |bookmark| %>
+          <% @dish.bookmarks.where("user_id=?",current_user.id).each do |bookmark| %>
           <li class="list-group-item">
-            <a href="/venues/<%= bookmark.venue.id %>"> 
+            <p><a href="/venues/<%= bookmark.venue.id %>"> 
               <%= bookmark.venue.name %>
-            </a>
+            </a></p>
           </li>
           <% end %>
         </ul>
