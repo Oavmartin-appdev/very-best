@@ -22,9 +22,20 @@
           </li>
           <% @venue.bookmarks.where("user_id=?",current_user.id).each do |bookmark| %>
           <li class="list-group-item">
-            <p><a href="/dishes/<%= bookmark.dish.id %>"> 
-              <%= bookmark.dish.name %>
-            </a></p>
+            <p>
+            
+              <a href="/dishes/<%= bookmark.dish.id %>"> 
+                <%= bookmark.dish.name %>
+              </a>
+              <small class="float-right text-muted">
+                    <%= (bookmark.created_at).strftime("Saved on %m/%d/%Y") %>
+                    <a href="/delete_bookmark/<%= bookmark.id %>">delete</a>
+                    <a href="/bookmarks/<%= bookmark.id %>/edit">edit</a>
+              </small>
+           </p>
+            <p>
+              <%= bookmark.notes %>
+            </p>
           </li>
           <% end %>
           <li class="list-group-item">
