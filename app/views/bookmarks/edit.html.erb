@@ -17,7 +17,10 @@
     <form action="/update_bookmark/<%= @bookmark.id %>" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-
+      
+      <div class="form-group">
+        <input type="hidden" name="user_id" class="form-control" value= <%=current_user.id%>>
+      </div>
       <!-- Label and input for dish_id -->
       <div class="form-group">
         <label for="dish_id" class="control-label">
